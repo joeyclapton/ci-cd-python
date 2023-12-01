@@ -1,10 +1,12 @@
 import os
 import sys
-sys.path.append('/Users/joeyclapton/rd/puc-lab/ci-cd-python/')
 
-from src.parser.YAML_parser import YAMLParser
-from src.parser.feature_engineering_parser import FeatureEngineeringParser
-from src.parser.model_parser import ModelParser
+current_path = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.abspath(os.path.join(current_path, '..')))
+
+from parser.YAML_parser import YAMLParser
+from parser.feature_engineering_parser import FeatureEngineeringParser
+from parser.model_parser import ModelParser
 
 if __name__ != "__main__":
     exit()   
@@ -14,8 +16,8 @@ def get_config():
     featureEngineringParser = FeatureEngineeringParser
     modelParser = ModelParser
 
-    for file in os.listdir('src/yamls'):
-        filepath = os.path.join('src/yamls', file)
+    for file in os.listdir('yamls'):
+        filepath = os.path.join('yamls', file)
         config = initialParser(filepath).parse()
     
         features_configs, columns_set_alias = featureEngineringParser(filepath).parse(config['feature_engineering'])
