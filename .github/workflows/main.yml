@@ -20,24 +20,24 @@ jobs:
 
       - name: Install Poetry
         run: |
-          python3 -m pip install --upgrade pip
-          pip3 install poetry
+          python -m pip install --upgrade pip
+          pip install poetry
           poetry config virtualenvs.create false  # Desativa a criação automática de venv por Poetry
 
       - name: Install dependencies
         run: |
-          cd app/ci_cd_puc/src
+          cd ci_cd_puc/src
           poetry install --no-root  # Instala as dependências sem criar um ambiente virtual
 
       - name: Run tests
         run: |
-          cd app/ci_cd_puc/src/tests
+          cd ci_cd_puc/src
           poetry run python -m unittest discover  # Substitua pelo comando de teste apropriado
 
       - name: Build and deploy to PyPI
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          cd app/ci_cd_puc/src
+          cd ci_cd_puc/src
           poetry build
           poetry config pypi-token.pypi ${{ secrets.PYPI_API_TOKEN }}  # Configura o token do PyPI
           poetry publish --build
