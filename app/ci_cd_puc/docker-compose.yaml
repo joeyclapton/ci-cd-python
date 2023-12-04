@@ -11,7 +11,7 @@ services:
       - mynetwork
 
   myapp:
-    image: python:3.9
+    image: python:3.12
     volumes:
       - ./src:/src
     working_dir: /src
